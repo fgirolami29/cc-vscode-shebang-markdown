@@ -1,7 +1,7 @@
 {
   "name": "cc-vscode-shebang-markdown",
   "displayName": "CodeCorn Shebang Markdown",
-  "description": "VS Code extension that detects a custom shebang and switches files to Markdown language mode for linters.",
+  "description": "VS Code extension that detects custom shebangs and file fallbacks to switch language mode for linters.",
   "version": "0.1.1",
   "publisher": "codecorn",
   "engines": {
@@ -24,12 +24,74 @@
         "ccShebangMarkdown.pattern": {
           "type": "string",
           "default": "^#!.*\\\\bcc-(md|markdown)\\\\b",
-          "description": "Regex applicata alla prima riga. Se matcha, il file cambia language mode."
+          "description": "Legacy regex applicata alla prima riga. Se matcha, viene applicato ccShebangMarkdown.targetLanguage."
         },
         "ccShebangMarkdown.targetLanguage": {
           "type": "string",
           "default": "markdown",
-          "description": "VS Code language id da applicare quando lo shebang matcha."
+          "description": "Legacy VS Code language id da applicare quando ccShebangMarkdown.pattern matcha."
+        },
+        "ccShebangMarkdown.rules": {
+          "type": "array",
+          "description": "Regole ordinate per forzare il language mode in base a firstLine, path o content.",
+          "default": [
+            {
+              "name": "CodeCorn Markdown shebang",
+              "when": "firstLine",
+              "pattern": "^#!.*\\\\bcc-(md|markdown)\\\\b",
+              "language": "markdown"
+            },
+            {
+              "name": "POSIX shell shebang",
+              "when": "firstLine",
+              "pattern": "^#!\\\\s*(?:/(?:usr/)?(?:local/)?bin/(?:bash|zsh|sh)\\\\b|/usr/bin/env\\\\s+(?:-[^\\\\s]+\\\\s+)*(?:bash|zsh|sh)\\\\b|/bin/env\\\\s+(?:-[^\\\\s]+\\\\s+)*(?:bash|zsh|sh)\\\\b)",
+              "language": "shellscript"
+            },
+            {
+              "name": "nginx.conf path",
+              "when": "path",
+              "pattern": "(?:^|[/\\\\\\\\])nginx\\\\.conf$|(?:^|[/\\\\\\\\])conf\\\\.d[/\\\\\\\\].*\\\\.conf$",
+              "language": "nginx",
+              "fallbackLanguage": "plaintext"
+            },
+            {
+              "name": "nginx content fallback",
+              "when": "content",
+              "pattern": "(?m)^\\\\s*(events|http|server|upstream)\\\\s*\\\\{|^\\\\s*location\\\\s+[^\\\\n]+\\\\{",
+              "language": "nginx",
+              "fallbackLanguage": "plaintext"
+            }
+          ],
+          "items": {
+            "type": "object",
+            "required": [
+              "pattern",
+              "language"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "when": {
+                "type": "string",
+                "enum": [
+                  "firstLine",
+                  "path",
+                  "content"
+                ],
+                "default": "firstLine"
+              },
+              "pattern": {
+                "type": "string"
+              },
+              "language": {
+                "type": "string"
+              },
+              "fallbackLanguage": {
+                "type": "string"
+              }
+            }
+          }
         }
       }
     }
