@@ -1,0 +1,87 @@
+{
+  "name": "cc-vscode-shebang-markdown",
+  "displayName": "CodeCorn Shebang Markdown",
+  "description": "VS Code extension that detects a custom shebang and switches files to Markdown language mode for linters.",
+  "version": "0.1.1",
+  "publisher": "codecorn",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Linters",
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onLanguage:plaintext",
+    "onLanguage:shellscript"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "CodeCorn Shebang Markdown",
+      "properties": {
+        "ccShebangMarkdown.pattern": {
+          "type": "string",
+          "default": "^#!.*\\\\bcc-(md|markdown)\\\\b",
+          "description": "Regex applicata alla prima riga. Se matcha, il file cambia language mode."
+        },
+        "ccShebangMarkdown.targetLanguage": {
+          "type": "string",
+          "default": "markdown",
+          "description": "VS Code language id da applicare quando lo shebang matcha."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "npm run pack:vsix",
+    "package": "vsce package",
+    "pack:npm": "npm pack --dry-run",
+    "pack:vsix": "vsce package",
+    "install:local": "bash scripts/cc-install-local.sh",
+    "reinstall": "npm run pack:vsix && npm run install:local",
+    "bump": "bash scripts/cc-npm-bump.sh",
+    "publish": "bash scripts/cc-npm-publish.sh",
+    "prepublishOnly": "npm run pack:npm"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fgirolami/cc-vscode-shebang-markdown.git"
+  },
+  "keywords": [
+    "vscode",
+    "vscode-extension",
+    "markdown",
+    "shebang",
+    "markdownlint",
+    "linter",
+    "language-detection",
+    "language-mode",
+    "developer-tools",
+    "codecorn"
+  ],
+  "author": {
+    "name": "Federico Girolami",
+    "email": "f.girolami@codecorn.it",
+    "url": "https://codecorn.it"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@vscode/vsce": "^3.9.2"
+  },
+  "files": [
+    "extension.js",
+    "README.md",
+    "README_IT.md",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
+    "package.json",
+    "scripts/cc-install-local.sh",
+    "scripts/cc-npm-bump.sh",
+    "scripts/cc-npm-publish.sh"
+  ],
+  "sideEffects": false
+}
