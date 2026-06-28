@@ -2,7 +2,7 @@
   "name": "cc-vscode-shebang-markdown",
   "displayName": "CodeCorn Shebang Markdown",
   "description": "VS Code extension that detects custom shebangs and file fallbacks to switch language mode for linters.",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "publisher": "codecorn",
   "engines": {
     "vscode": "^1.80.0"
