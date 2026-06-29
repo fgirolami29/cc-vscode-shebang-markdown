@@ -33,15 +33,15 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/fgirolami29/cc-vscode-shebang-markdown.git"
+        "url": "git+https://github.com/fgirolami2929/cc-vscode-shebang-markdown.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/fgirolami29/cc-vscode-shebang-markdown/issues"
+        "url": "https://github.com/fgirolami2929/cc-vscode-shebang-markdown/issues"
     },
-    "homepage": "https://github.com/fgirolami29/cc-vscode-shebang-markdown#readme",
+    "homepage": "https://github.com/fgirolami2929/cc-vscode-shebang-markdown#readme",
     "devDependencies": {
         "@vscode/vsce": "^3.9.2"
     },
